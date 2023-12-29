@@ -22,7 +22,6 @@ router.post('/signup', async (req, res) => {
 
     // Create a token for the new user
     const token = jwt.sign({ userId: user._id }, SecretKey);
-    res.send("created");
     res.status(201).json({ token });
   } catch (error) {
     console.log(error);
