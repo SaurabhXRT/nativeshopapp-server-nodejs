@@ -19,6 +19,7 @@ router.get('/', authMiddleware, async (req, res) => {
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const { name } = req.body;
+    console.log(name);
     const newShopkeeper = new Shopkeeper({ name, createdBy: req.user._id });
     await newShopkeeper.save();
     res.status(201).json(newShopkeeper);
