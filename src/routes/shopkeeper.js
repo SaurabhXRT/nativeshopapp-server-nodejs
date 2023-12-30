@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const Shopkeeper = require('../models/ShopKeeper');
 const authMiddleware = require('../middleware/auth'); // Add authentication middleware
+const Shopkeeper = require('../models/Shopkeeper');
+const ListItem = require('../models/ListItem');
 
 // Get shopkeepers for the authenticated user
 router.get('/', authMiddleware, async (req, res) => {
@@ -38,6 +40,36 @@ router.delete('/:id', authMiddleware, async (req, res) => {
     }
 
     res.status(200).json({ message: 'Shopkeeper deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+router.get('/:shopkeeperId/items', authMiddleware, async (req, res) => {
+  try {
+    const items = await ListItem.find({ shopkeeper: req.params.shopkeeperId }).sort({ createdAt: -1 });
+    res.status(200).json(items);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Create a new item for a specific shopkeeper
+router.post('/:shopkeeperId/items', authMiddleware, async (req, res) => {
+  try {
+    const { itemName, price } = req.body;
+    const shopkeeperId = req.params.shopkeeperId;
+
+    const newItem = new ListItem({
+      shopkeeper: shopkeeperId,
+      itemName,
+      price,
+    });
+
+    await newItem.save();
+    res.status(201).json(newItem);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
