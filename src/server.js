@@ -31,7 +31,7 @@ app.get("/", (req,res) =>{
 })
 
 const authRoutes = require('./routes/auth');
-// const shopkeeperRoutes = require('./routes/shopkeeper');
+const shopkeeperRoutes = require('./routes/shopkeeper');
 // const listItemRoutes = require('./routes/listItem');
 
 
@@ -46,7 +46,7 @@ const authRoutes = require('./routes/auth');
 
 
 app.use('/api/auth', authRoutes);
-// app.use('/api/shopkeeper', shopkeeperRoutes);
+app.use('/api/shopkeeper', shopkeeperRoutes);
 // app.use('/api/listItem', listItemRoutes);
 
 app.listen(PORT, () => {
