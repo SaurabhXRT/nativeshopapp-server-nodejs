@@ -41,4 +41,16 @@ userSchema.methods.comparePassword = async function (password) {
   }
 };
 
+// models/User.js
+// ... (your existing User model code)
+
+userSchema.methods.generateAuthToken = async function () {
+  const user = this;
+  const token = jwt.sign({ userId: user._id }, 'your-secret-key'); // Use your secret key
+  user.tokens = user.tokens.concat({ token });
+  await user.save();
+  return token;
+};
+
+
 module.exports = mongoose.model('User', userSchema);
