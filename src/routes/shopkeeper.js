@@ -76,4 +76,30 @@ router.post('/:shopkeeperId/items', authMiddleware, async (req, res) => {
   }
 });
 
+router.delete('/:shopkeeperId/items/:itemId', authMiddleware, async (req, res) => {
+  const { shopkeeperId, itemId } = req.params;
+
+  try {
+    const shopkeeper = await Shopkeeper.findOne({ _id: shopkeeperId, owner: req.user._id });
+
+    if (!shopkeeper) {
+      return res.status(404).json({ error: 'Shopkeeper not found' });
+    }
+
+    const item = shopkeeper.items.id(itemId);
+
+    if (!item) {
+      return res.status(404).json({ error: 'Item not found' });
+    }
+
+    item.remove();
+    await shopkeeper.save();
+
+    res.json(item);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 module.exports = router;
