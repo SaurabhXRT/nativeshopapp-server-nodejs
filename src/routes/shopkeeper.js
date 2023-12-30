@@ -1,7 +1,7 @@
 // routes/shopkeeper.js
 const express = require('express');
 const router = express.Router();
-const Shopkeeper = require('../models/Shopkeeper');
+const Shopkeeper = require('../models/ShopKeeper');
 const authMiddleware = require('../middleware/auth'); // Add authentication middleware
 
 // Get shopkeepers for the authenticated user
