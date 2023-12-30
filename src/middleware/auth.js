@@ -7,7 +7,10 @@ const SecretKey ="2809a95eedde5863d8e8e3bea5205cd62d290b10a3769afee677b8754a4d05
 const authMiddleware = async (req, res, next) => {
   try {
     const token = req.header('Authorization').replace('Bearer ', '');
-    console.log(token);
+    if (!token) {
+      throw new Error('No token provided');
+    }
+    console.log(token, "this is the token");
    // const decoded = jwt.verify(token, SecretKey); // Use your secret key
 
     const decoded = jwt.verify(token, SecretKey, (err, decoded) => {
