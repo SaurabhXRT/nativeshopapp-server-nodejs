@@ -29,4 +29,19 @@ router.post('/', authMiddleware, async (req, res) => {
   }
 });
 
+router.delete('/:id', authMiddleware, async (req, res) => {
+  try {
+    const shopkeeper = await Shopkeeper.findByIdAndDelete(req.params.id);
+
+    if (!shopkeeper) {
+      return res.status(404).json({ error: 'Shopkeeper not found' });
+    }
+
+    res.status(200).json({ message: 'Shopkeeper deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 module.exports = router;
