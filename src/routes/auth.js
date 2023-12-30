@@ -60,7 +60,15 @@ router.post('/signin', async (req, res) => {
     console.log('User:', user);
 
     // If the user is not found or the password is incorrect, return an error
-    if (!user || !(await user.comparePassword(password))) {
+    if (!user) {
+      console.log('User not found');
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    const isPasswordValid = await user.comparePassword(password);
+    console.log('Is Password Valid:', isPasswordValid);
+
+    if (!isPasswordValid) {
       console.log('Invalid credentials');
       return res.status(401).json({ error: 'Invalid credentials' });
     }
@@ -75,6 +83,5 @@ router.post('/signin', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 module.exports = router;
