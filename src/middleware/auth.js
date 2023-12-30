@@ -8,7 +8,16 @@ const authMiddleware = async (req, res, next) => {
   try {
     const token = req.header('Authorization').replace('Bearer ', '');
     console.log(token);
-    const decoded = jwt.verify(token, SecretKey); // Use your secret key
+   // const decoded = jwt.verify(token, SecretKey); // Use your secret key
+
+    const decoded = jwt.verify(token, SecretKey, (err, decoded) => {
+  if (err) {
+    console.error('Token verification error:', err.message);
+    throw new Error('Invalid token');
+  }
+  return decoded;
+});
+
     const user = await User.findOne({ _id: decoded.userId, 'tokens.token': token });
 
     if (!user) {
