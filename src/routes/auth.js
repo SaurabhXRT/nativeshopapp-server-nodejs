@@ -36,7 +36,7 @@ router.post('/signin', async (req, res) => {
 
     // Find the user by name
     const user = await User.findOne({ name });
-
+    console.log(user);
     // If the user is not found or the password is incorrect, return an error
     if (!user || !(await user.comparePassword(password))) {
       return res.status(401).json({ error: 'Invalid credentials' });
@@ -45,8 +45,9 @@ router.post('/signin', async (req, res) => {
     // Create a token for the authenticated user
     const token = jwt.sign({ userId: user._id }, SecretKey);
 
-    res.json({ token });
+     res.status(201).json({ token });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
