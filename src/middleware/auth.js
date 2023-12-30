@@ -22,9 +22,10 @@ const authMiddleware = async (req, res, next) => {
 });
 
     const user = await User.findOne({ _id: decoded.userId, 'tokens.token': token });
+    console.log(user);
 
     if (!user) {
-      throw new Error();
+      console.log("user not found");
     }
 
     req.token = token;
