@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Shopkeeper = require('../models/ShopKeeper');
 const authMiddleware = require('../middleware/auth'); // Add authentication middleware
-const Shopkeeper = require('../models/Shopkeeper');
+//const Shopkeeper = require('../models/Shopkeeper');
 const ListItem = require('../models/ListItem');
 
 // Get shopkeepers for the authenticated user
