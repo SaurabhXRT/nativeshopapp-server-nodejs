@@ -44,7 +44,7 @@ const shopkeeperRoutes = require('./routes/shopkeeper');
 
 // app.use('/api/auth', cors(corsOptions), authRoutes);
 const paymentRoutes = require('./routes/paymentRoutes');
-app.use('/api/shopkeeper', paymentRoutes);
+app.use('/api/shopkeepers', paymentRoutes);
 
 app.use('/api/auth', authRoutes);
 app.use('/api/shopkeeper', shopkeeperRoutes);
