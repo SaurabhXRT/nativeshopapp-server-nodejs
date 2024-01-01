@@ -37,7 +37,7 @@ router.get('/shopkeeper/:shopkeeperId/payments', async (req, res) => {
 
     // Fetch payments for the shopkeeper
     const payments = await Payment.find({ shopkeeper: shopkeeperId });
-
+    console.log(payments);
     res.status(200).json(payments);
   } catch (error) {
     console.error(error);
