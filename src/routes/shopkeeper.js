@@ -85,19 +85,9 @@ router.delete('/:shopkeeperId/items/:itemId', authMiddleware, async (req, res) =
     if (!shopkeeper) {
       return res.status(404).json({ error: 'Shopkeeper not found' });
     }
-
-    // Find the index of the item to be removed
-    const itemIndex = shopkeeper.items.findIndex(item => item._id.toString() === itemId);
-
-    if (itemIndex === -1) {
-      return res.status(404).json({ error: 'Item not found' });
-    }
-
-    // Remove the item from the items array
-    shopkeeper.items.splice(itemIndex, 1);
-
-    // Save the updated shopkeeper document
-    await shopkeeper.save();
+   const item = await ListItem.findByIdAndDelete(itemId);
+   
+    await ListItem.save();
 
     res.json({ message: 'Item deleted successfully', deletedItemId: itemId });
   } catch (error) {
