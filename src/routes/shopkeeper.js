@@ -76,7 +76,7 @@ router.post('/:shopkeeperId/items', authMiddleware, async (req, res) => {
   }
 });
 
-router.delete('/:shopkeeperId/items/:itemId', authMiddleware, async (req, res) => {
+router.post('/:shopkeeperId/items/:itemId', authMiddleware, async (req, res) => {
   const { shopkeeperId, itemId } = req.params;
 
   try {
