@@ -87,7 +87,7 @@ router.delete('/:shopkeeperId/items/:itemId', authMiddleware, async (req, res) =
     }
    const item = await ListItem.findByIdAndDelete(itemId);
    
-    await ListItem.save();
+    await item.save();
 
     res.json({ message: 'Item deleted successfully', deletedItemId: itemId });
   } catch (error) {
