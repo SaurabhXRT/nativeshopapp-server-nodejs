@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/auth');
 const Payment = require('../models/Payment');
+const Shopkeeper = require('../models/ShopKeeper');
 
 // Save a new payment
 router.post('/:shopkeeperId/payments', authMiddleware, async (req, res) => {
