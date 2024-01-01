@@ -25,7 +25,7 @@ router.post('/:shopkeeperId/payments', authMiddleware, async (req, res) => {
   }
 });
 
-router.get('/shopkeeper/:shopkeeperId/payments', async (req, res) => {
+router.get('/:shopkeeperId/payments', async (req, res) => {
   try {
     const { shopkeeperId } = req.params;
 
