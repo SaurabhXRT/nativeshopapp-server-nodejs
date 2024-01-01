@@ -86,8 +86,10 @@ router.delete('/:shopkeeperId/items/:itemId', authMiddleware, async (req, res) =
       return res.status(404).json({ error: 'Shopkeeper not found' });
     }
    const item = await ListItem.findByIdAndDelete(itemId);
-   
-    await item.save();
+   if (!item) {
+      // If the item is not found, return a 404 response
+      return res.status(404).json({ error: 'Item not found' });
+    }
 
     res.json({ message: 'Item deleted successfully', deletedItemId: itemId });
   } catch (error) {
