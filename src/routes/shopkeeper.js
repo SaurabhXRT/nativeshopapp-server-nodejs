@@ -80,7 +80,7 @@ router.delete('/:shopkeeperId/items/:itemId', authMiddleware, async (req, res) =
   const { shopkeeperId, itemId } = req.params;
 
   try {
-    const shopkeeper = await Shopkeeper.findOne({ _id: shopkeeperId, owner: req.user._id });
+    const shopkeeper = await Shopkeeper.findOne({ _id: shopkeeperId});
     console.log(shopkeeper);
     if (!shopkeeper) {
       return res.status(404).json({ error: 'Shopkeeper not found' });
