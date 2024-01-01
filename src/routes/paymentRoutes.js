@@ -24,4 +24,24 @@ router.post('/:shopkeeperId/payments', authMiddleware, async (req, res) => {
   }
 });
 
+router.get('/shopkeeper/:shopkeeperId/payments', async (req, res) => {
+  try {
+    const { shopkeeperId } = req.params;
+
+    // Check if the shopkeeper exists
+    const shopkeeper = await Shopkeeper.findById(shopkeeperId);
+    if (!shopkeeper) {
+      return res.status(404).json({ error: 'Shopkeeper not found' });
+    }
+
+    // Fetch payments for the shopkeeper
+    const payments = await Payment.find({ shopkeeper: shopkeeperId });
+
+    res.status(200).json(payments);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 module.exports = router;
