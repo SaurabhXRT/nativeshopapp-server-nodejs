@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// Hash the password before saving
 userSchema.pre('save', async function (next) {
   const user = this;
 
@@ -29,8 +28,6 @@ userSchema.pre('save', async function (next) {
     next(error);
   }
 });
-
-// Add a method to compare passwords during signin
 userSchema.methods.comparePassword = async function (password) {
   try {
     const isMatch = await bcrypt.compare(password, this.password);
@@ -42,8 +39,7 @@ userSchema.methods.comparePassword = async function (password) {
   }
 };
 
-// models/User.js
-// ... (your existing User model code)
+
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
