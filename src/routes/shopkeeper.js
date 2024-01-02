@@ -1,4 +1,3 @@
-// routes/shopkeeper.js
 const express = require('express');
 const router = express.Router();
 const Shopkeeper = require('../models/ShopKeeper');
@@ -6,7 +5,6 @@ const authMiddleware = require('../middleware/auth'); // Add authentication midd
 //const Shopkeeper = require('../models/Shopkeeper');
 const ListItem = require('../models/ListItem');
 
-// Get shopkeepers for the authenticated user
 router.get('/', authMiddleware, async (req, res) => {
   try {
     const shopkeepers = await Shopkeeper.find({ createdBy: req.user._id });
@@ -17,7 +15,6 @@ router.get('/', authMiddleware, async (req, res) => {
   }
 });
 
-// Add a new shopkeeper for the authenticated user
 router.post('/', authMiddleware, async (req, res) => {
   try {
     const { name } = req.body;
@@ -56,7 +53,6 @@ router.get('/:shopkeeperId/items', authMiddleware, async (req, res) => {
   }
 });
 
-// Create a new item for a specific shopkeeper
 router.post('/:shopkeeperId/items', authMiddleware, async (req, res) => {
   try {
     const { itemName, price } = req.body;
@@ -87,7 +83,6 @@ router.delete('/:shopkeeperId/items/:itemId', authMiddleware, async (req, res) =
     }
    const item = await ListItem.findByIdAndDelete(itemId);
    if (!item) {
-      // If the item is not found, return a 404 response
       return res.status(404).json({ error: 'Item not found' });
     }
 
