@@ -1,4 +1,3 @@
-// routes/auth.js
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
@@ -19,8 +18,6 @@ router.post('/signup', async (req, res) => {
     const user = new User({ name, password });
     console.log(user);
     await user.save();
-
-    // Create a token for the new user
     const token = jwt.sign({ userId: user._id }, SecretKey);
     res.status(201).json({ token });
   } catch (error) {
@@ -29,37 +26,11 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-// Signin
-// router.post('/signin', async (req, res) => {
-//   try {
-//     const { name, password } = req.body;
-
-//     // Find the user by name
-//     const user = await User.findOne({ name });
-//     console.log(user);
-//     // If the user is not found or the password is incorrect, return an error
-//     if (!user || !(await user.comparePassword(password))) {
-//       return res.status(401).json({ error: 'Invalid credentials' });
-//     }
-
-//     // Create a token for the authenticated user
-//     const token = jwt.sign({ userId: user._id }, SecretKey);
-
-//      res.status(201).json({ token });
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
 router.post('/signin', async (req, res) => {
   try {
     const { name, password } = req.body;
-
-    // Find the user by name
     const user = await User.findOne({ name });
     console.log('User:', user);
-
-    // If the user is not found or the password is incorrect, return an error
     if (!user) {
       console.log('User not found');
       return res.status(401).json({ error: 'Invalid credentials' });
@@ -72,8 +43,6 @@ router.post('/signin', async (req, res) => {
       console.log('Invalid credentials');
       return res.status(401).json({ error: 'Invalid credentials' });
     }
-
-    // Create a token for the authenticated user
     const token = jwt.sign({ userId: user._id }, SecretKey);
     console.log('Token:', token);
 
