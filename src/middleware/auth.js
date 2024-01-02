@@ -1,4 +1,3 @@
-// middleware/auth.js
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
@@ -11,7 +10,7 @@ const authMiddleware = async (req, res, next) => {
       throw new Error('No token provided');
     }
     console.log(token, "this is the token");
-   // const decoded = jwt.verify(token, SecretKey); // Use your secret key
+   // const decoded = jwt.verify(token, SecretKey); 
 
     const decoded = jwt.verify(token, SecretKey, (err, decoded) => {
   if (err) {
