@@ -36,7 +36,7 @@ const shopkeeperRoutes = require('./routes/shopkeeper');
 
 
 // const corsOptions = {
-//   origin: 'http://127.0.0.1:5000/',  // Replace with your client's origin
+//   origin: 'http://127.0.0.1:5000/', 
 //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 //   credentials: true,
 //   optionsSuccessStatus: 204,
