@@ -45,13 +45,15 @@ router.delete('/:id', authMiddleware, async (req, res) => {
 
 router.get('/:shopkeeperId/items', authMiddleware, async (req, res) => {
   try {
+    const shopkeepername = await Shopkeeper.find(req.params.id);
     const items = await ListItem.find({ shopkeeper: req.params.shopkeeperId }).sort({ createdAt: -1 });
-    res.status(200).json(items);
+    res.status(200).json({items, shopkeepername});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 router.post('/:shopkeeperId/items', authMiddleware, async (req, res) => {
   try {
