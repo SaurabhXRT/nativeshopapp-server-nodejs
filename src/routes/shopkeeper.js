@@ -43,15 +43,15 @@ router.delete('/:id', authMiddleware, async (req, res) => {
   }
 });
 
-router.get('/:id', authMiddleware, async (req, res) => {
+router.get('/:id/name', authMiddleware, async (req, res) => {
   try {
-    const shopkeeper = await Shopkeeper.find({_id: req.params.id});
+    const shopkeeper = await Shopkeeper.findById(req.params.id, 'name');
 
     if (!shopkeeper) {
       return res.status(404).json({ error: 'Shopkeeper not found' });
     }
 
-    res.status(200).json(shopkeeper);
+    res.status(200).json({ name: shopkeeper.name });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
