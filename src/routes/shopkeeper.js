@@ -45,7 +45,7 @@ router.delete('/:id', authMiddleware, async (req, res) => {
 
 router.get('/:id/name', authMiddleware, async (req, res) => {
   try {
-    const shopkeeper = await Shopkeeper.findById(req.params.id, 'name');
+    const shopkeeper = await Shopkeeper.findById(req.params.id);
 
     if (!shopkeeper) {
       return res.status(404).json({ error: 'Shopkeeper not found' });
