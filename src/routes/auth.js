@@ -34,7 +34,7 @@ router.post('/signin', async (req, res) => {
     if (!user) {
       console.log('User not found');
       const notuser = 'notuser';
-      return res.status(401).json({notuser});
+      return res.json({notuser});
     }
 
     const isPasswordValid = await user.comparePassword(password);
@@ -43,7 +43,7 @@ router.post('/signin', async (req, res) => {
     if (!isPasswordValid) {
       console.log('Invalid credentials');
       const notpassword = 'notpassword';
-      return res.status(401).json({ notpassword });
+      return res.json({ notpassword });
     }
     const token = jwt.sign({ userId: user._id }, SecretKey);
     console.log('Token:', token);
